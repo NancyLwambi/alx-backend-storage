@@ -1,26 +1,22 @@
 #!/usr/bin/env python3
-"""Log stats"""
+""" nginx logs to mongo instance parser """
+
 from pymongo import MongoClient
 
 
-def helper(a: dict) -> int:
-    """return log"""
-    client = MongoClient('mongodb://127.0.0.1:27017')
-    logs = client.logs.nginx
-    return logs.count_documents(a)
-
-
-def main():
-    """ provides some stats about Nginx logs stored in MongoDB """
-    print(f"{helper({})} logs")
+def temp_F():
+    """ temp function to check the checker"""
+    client = MongoClient()
+    main = client.logs.nginx
+    method_C = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+    status = main.count_documents({"method": "GET", "path": "/status"})
+    print(f"{main.estimated_document_count()} logs")
     print("Methods:")
-    print(f"\tmethod GET: {helper({'method': 'GET'})}")
-    print(f"\tmethod POST: {helper({'method': 'POST'})}")
-    print(f"\tmethod PUT: {helper({'method': 'PUT'})}")
-    print(f"\tmethod PATCH: {helper({'method': 'PATCH'})}")
-    print(f"\tmethod DELETE: {helper({'method': 'DELETE'})}")
-    print(f"{helper({'method': 'GET', 'path': '/status'})} status check")
+    for i in method_C:
+        check = main.count_documents({"method": i})
+        print(f"\tmethod {i}: {check}")
+    print(f"{status} status check")
 
 
 if __name__ == "__main__":
-    main()
+    temp_F()
