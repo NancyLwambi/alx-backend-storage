@@ -1,4 +1,4 @@
-# 0x0B. Redis basic 
+# 0x02 Redis basic 
 :bookmark: redis
 
 ## Resources
